@@ -50,11 +50,9 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun SalaryCalculator(modifier: Modifier = Modifier) {
-    var salary by remember {
+    val salary by remember {
         mutableStateOf(
-            Salary(
-                0F, 0F, 0F, 0F, 0F
-            )
+            Salary()
         )
     }
 
@@ -84,6 +82,18 @@ fun SalaryCalculator(modifier: Modifier = Modifier) {
             onValueChange = {
                 salary.baseSalary = it.toFloatOrNull() ?: 0F
             }, supportingText = "Timelønn i NOK"
+        )
+
+        Spacer(modifier = Modifier.height(7.dp))
+
+        NumberInput(
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            label = "Skatt",
+            value = "",
+            onValueChange = {
+                salary.tax = it.toFloatOrNull()
+            },
+            supportingText = "Skatt i %"
         )
 
         Spacer(modifier = Modifier.height(16.dp))

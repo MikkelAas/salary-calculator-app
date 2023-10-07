@@ -11,9 +11,6 @@ class SalaryTest {
         val salary = Salary(
             baseSalary = 100F,
             normalHours = 10F,
-            0F,
-            0F,
-            0F,
         )
 
         val totalSalary = salary.calculateTotalSalary()
@@ -25,10 +22,7 @@ class SalaryTest {
     fun `calculate salary with only fifty percent hours`() {
         val salary = Salary(
             baseSalary = 100F,
-            normalHours = 0F,
-            10F,
-            0F,
-            0F,
+            fiftyPercentHours = 10F,
         )
 
         val totalSalary = salary.calculateTotalSalary()
@@ -40,10 +34,7 @@ class SalaryTest {
     fun `calculate salary with only hundred percent hours`() {
         val salary = Salary(
             baseSalary = 100F,
-            normalHours = 0F,
-            0F,
-            10F,
-            0F,
+            hundredPercentHours = 10F,
         )
 
         val totalSalary = salary.calculateTotalSalary()
@@ -55,10 +46,7 @@ class SalaryTest {
     fun `calculate salary with only one fifty percent hours`() {
         val salary = Salary(
             baseSalary = 100F,
-            normalHours = 0F,
-            0F,
-            0F,
-            10F,
+            oneFiftyPercentHours = 10F,
         )
 
         val totalSalary = salary.calculateTotalSalary()
@@ -71,13 +59,29 @@ class SalaryTest {
         val salary = Salary(
             baseSalary = 100F,
             normalHours = 10F,
-            10F,
-            10F,
-            10F,
+            fiftyPercentHours = 10F,
+            hundredPercentHours = 10F,
+            oneFiftyPercentHours = 10F,
         )
 
         val totalSalary = salary.calculateTotalSalary()
 
         assertEquals(7000F, totalSalary)
+    }
+
+    @Test
+    fun `calculate salary after tax`() {
+        val salary = Salary(
+            baseSalary = 100F,
+            tax = 50F,
+            normalHours = 10F,
+            fiftyPercentHours = 10F,
+            hundredPercentHours = 10F,
+            oneFiftyPercentHours = 10F,
+        )
+
+        val totalSalary = salary.calculateTotalSalary()
+
+        assertEquals(3500F, totalSalary)
     }
 }

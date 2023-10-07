@@ -1,11 +1,12 @@
 package com.example.myapplication
 
 data class Salary(
-    var baseSalary: Float,
-    var normalHours: Float,
-    var fiftyPercentHours: Float,
-    var hundredPercentHours: Float,
-    var oneFiftyPercentHours: Float,
+    var baseSalary: Float = 0F,
+    var tax: Float? = null,
+    var normalHours: Float = 0F,
+    var fiftyPercentHours: Float = 0F,
+    var hundredPercentHours: Float = 0F,
+    var oneFiftyPercentHours: Float = 0F,
 ) {
 
     fun calculateTotalSalary(): Float {
@@ -13,7 +14,13 @@ data class Salary(
 
         val bonusSalaryTotal = calculateTotalBonus()
 
-        return normalSalaryTotal + bonusSalaryTotal
+        val totalSalaryBeforeTax = normalSalaryTotal + bonusSalaryTotal
+
+        if (tax != null) {
+            return totalSalaryBeforeTax * (tax!! / 100)
+        }
+
+        return totalSalaryBeforeTax
     }
 
     private fun calculateNormalSalary(): Float {
