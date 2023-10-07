@@ -17,7 +17,7 @@ data class Salary(
         val totalSalaryBeforeTax = normalSalaryTotal + bonusSalaryTotal
 
         if (tax != null) {
-            return totalSalaryBeforeTax * (tax!! / 100)
+            return totalSalaryBeforeTax * ((100 - tax!!) / 100)
         }
 
         return totalSalaryBeforeTax

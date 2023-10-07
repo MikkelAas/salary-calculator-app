@@ -73,7 +73,7 @@ class SalaryTest {
     fun `calculate salary after tax`() {
         val salary = Salary(
             baseSalary = 100F,
-            tax = 50F,
+            tax = 10F,
             normalHours = 10F,
             fiftyPercentHours = 10F,
             hundredPercentHours = 10F,
@@ -82,6 +82,6 @@ class SalaryTest {
 
         val totalSalary = salary.calculateTotalSalary()
 
-        assertEquals(3500F, totalSalary)
+        assertEquals(6300F, totalSalary)
     }
 }
