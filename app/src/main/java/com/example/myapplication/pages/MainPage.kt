@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -20,6 +19,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import com.example.myapplication.Salary
+import com.example.myapplication.elements.CalculateButton
 import com.example.myapplication.elements.NumberInput
 import com.example.myapplication.elements.TotalSalaryCard
 import com.example.myapplication.ui.theme.MyApplicationTheme
@@ -119,17 +119,14 @@ fun SalaryCalculator(modifier: Modifier = Modifier) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Button(
+        CalculateButton(
             onClick = {
                 totalSalary = salary.calculateTotalSalary()
             },
             modifier = Modifier.align(Alignment.CenterHorizontally)
-        ) {
-            Text(text = "Kalkuler")
-        }
+        )
 
         Spacer(modifier = Modifier.height(10.dp))
-
 
         TotalSalaryCard(totalSalary)
     }
