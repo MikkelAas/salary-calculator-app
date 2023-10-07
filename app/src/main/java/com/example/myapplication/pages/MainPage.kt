@@ -36,6 +36,10 @@ fun SalaryCalculator(modifier: Modifier = Modifier) {
         mutableStateOf(0F)
     }
 
+    var showResult by remember {
+        mutableStateOf(false)
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -57,6 +61,7 @@ fun SalaryCalculator(modifier: Modifier = Modifier) {
             value = "",
             onValueChange = {
                 salary.baseSalary = it.toFloatOrNull() ?: 0F
+                showResult = false
             }, supportingText = "Timelønn i NOK"
         )
 
@@ -87,6 +92,7 @@ fun SalaryCalculator(modifier: Modifier = Modifier) {
             value = "",
             onValueChange = {
                 salary.normalHours = it.toFloatOrNull() ?: 0F
+                showResult = false
             }
         )
 
@@ -96,6 +102,7 @@ fun SalaryCalculator(modifier: Modifier = Modifier) {
             value = "",
             onValueChange = {
                 salary.fiftyPercentHours = it.toFloatOrNull() ?: 0F
+                showResult = false
             }
         )
 
@@ -105,6 +112,7 @@ fun SalaryCalculator(modifier: Modifier = Modifier) {
             value = "",
             onValueChange = {
                 salary.hundredPercentHours = it.toFloatOrNull() ?: 0F
+                showResult = false
             },
         )
 
@@ -114,6 +122,7 @@ fun SalaryCalculator(modifier: Modifier = Modifier) {
             value = "",
             onValueChange = {
                 salary.oneFiftyPercentHours = it.toFloatOrNull() ?: 0F
+                showResult = false
             }
         )
 
@@ -122,13 +131,16 @@ fun SalaryCalculator(modifier: Modifier = Modifier) {
         CalculateButton(
             onClick = {
                 totalSalary = salary.calculateTotalSalary()
+                showResult = true
             },
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        TotalSalaryCard(totalSalary)
+        if (showResult) {
+            TotalSalaryCard(totalSalary)
+        }
     }
 }
 
