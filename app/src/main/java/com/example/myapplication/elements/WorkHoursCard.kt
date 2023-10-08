@@ -1,6 +1,5 @@
 package com.example.myapplication.elements
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
@@ -11,15 +10,15 @@ fun WorkHoursCard(
     onHoursInputChange: (String) -> Unit,
     onBonusInputChange: (String) -> Unit,
     onWeekendHoursInputChange: (String) -> Unit,
-    onNightHoursInputChange: (String) -> Unit
+    onNightHoursInputChange: (String) -> Unit,
+    deleteButtonOnClick: () -> Unit,
 ) {
     Card {
-        Column {
-            NumberInput(label = "Antall timer jobbet", value = "", onValueChange = onHoursInputChange)
+            NumberInput(label = "Antall timer totalt", value = "", onValueChange = onHoursInputChange)
             NumberInput(label = "Bonus i %", value = "", onValueChange = onBonusInputChange)
             NumberInput(label = "Antall timer helg", value = "", onValueChange = onWeekendHoursInputChange)
             NumberInput(label = "Antall timer natt", value = "", onValueChange = onNightHoursInputChange)
-        }
+            DeleteButton(onClick = deleteButtonOnClick)
     }
 }
 
@@ -31,7 +30,8 @@ fun WorkHoursCardPreview() {
             onHoursInputChange = {},
             onBonusInputChange = {},
             onWeekendHoursInputChange = {},
-            onNightHoursInputChange = {}
+            onNightHoursInputChange = {},
+            deleteButtonOnClick = {}
         )
     }
 }
