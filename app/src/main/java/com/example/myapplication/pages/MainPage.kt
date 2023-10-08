@@ -2,6 +2,7 @@ package com.example.myapplication.pages
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -22,6 +23,7 @@ import com.example.myapplication.Salary
 import com.example.myapplication.elements.CalculateButton
 import com.example.myapplication.elements.NumberInput
 import com.example.myapplication.elements.TotalSalaryCard
+import com.example.myapplication.elements.WorkHoursCard
 import com.example.myapplication.ui.theme.MyApplicationTheme
 
 @Composable
@@ -55,27 +57,52 @@ fun SalaryCalculator(modifier: Modifier = Modifier) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        NumberInput(
-            modifier = Modifier.align(Alignment.CenterHorizontally),
-            label = "Timelønn",
-            value = "",
-            onValueChange = {
-                salary.baseSalary = it.toFloatOrNull() ?: 0F
-                showResult = false
-            }, supportingText = "Timelønn i NOK"
-        )
+        Row(
+            Modifier.align(Alignment.CenterHorizontally)
+        ) {
+            NumberInput(
+                label = "Timelønn",
+                value = "",
+                onValueChange = {
+                    salary.hourlyWage = it.toFloatOrNull() ?: 0F
+                    showResult = false
+                }, supportingText = "Timelønn i NOK"
+            )
 
-        Spacer(modifier = Modifier.height(7.dp))
+            Spacer(modifier = Modifier.height(7.dp))
 
-        NumberInput(
-            modifier = Modifier.align(Alignment.CenterHorizontally),
-            label = "Skatt",
-            value = "",
-            onValueChange = {
-                salary.tax = it.toFloatOrNull()
-            },
-            supportingText = "Skatt i %"
-        )
+            NumberInput(
+                label = "Skatt",
+                value = "",
+                onValueChange = {
+                    salary.tax = it.toFloatOrNull()
+                },
+                supportingText = "Skatt i %"
+            )
+        }
+
+        Row {
+            NumberInput(
+                label = "Helgetillegg",
+                value = "",
+                onValueChange = {
+                    salary.weekendWage = it.toFloatOrNull() ?: 0F
+                    showResult = false
+                }, supportingText = "Helgetillegg i NOK"
+            )
+
+            Spacer(modifier = Modifier.height(7.dp))
+
+            NumberInput(
+                label = "Kvelds- og nattillegg",
+                value = "",
+                onValueChange = {
+                    salary.tax = it.toFloatOrNull()
+                },
+                supportingText = "Kvelds- og nattillegg i NOK"
+            )
+        }
+
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -86,44 +113,11 @@ fun SalaryCalculator(modifier: Modifier = Modifier) {
 
         Spacer(modifier = Modifier.height(5.dp))
 
-        NumberInput(
-            modifier = Modifier.align(Alignment.CenterHorizontally),
-            label = "Vanlige timer",
-            value = "",
-            onValueChange = {
-                salary.normalHours = it.toFloatOrNull() ?: 0F
-                showResult = false
-            }
-        )
-
-        NumberInput(
-            modifier = Modifier.align(Alignment.CenterHorizontally),
-            label = "50% bonus timer",
-            value = "",
-            onValueChange = {
-                salary.fiftyPercentHours = it.toFloatOrNull() ?: 0F
-                showResult = false
-            }
-        )
-
-        NumberInput(
-            modifier = Modifier.align(Alignment.CenterHorizontally),
-            label = "100% bonus timer",
-            value = "",
-            onValueChange = {
-                salary.hundredPercentHours = it.toFloatOrNull() ?: 0F
-                showResult = false
-            },
-        )
-
-        NumberInput(
-            modifier = Modifier.align(Alignment.CenterHorizontally),
-            label = "150% bonus timer",
-            value = "",
-            onValueChange = {
-                salary.oneFiftyPercentHours = it.toFloatOrNull() ?: 0F
-                showResult = false
-            }
+        WorkHoursCard(
+            onHoursInputChange = {},
+            onBonusInputChange = {},
+            onWeekendHoursInputChange = {},
+            onNightHoursInputChange = {}
         )
 
         Spacer(modifier = Modifier.height(16.dp))
