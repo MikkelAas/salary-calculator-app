@@ -18,8 +18,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import com.example.myapplication.Salary
 import com.example.myapplication.WorkTimeRecord
@@ -49,75 +47,70 @@ fun SalaryCalculator(modifier: Modifier = Modifier) {
         mutableStateOf(false)
     }
 
-    Column(
+    Box(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+            .verticalScroll(rememberScrollState())
+            .padding(32.dp)
     ) {
-        Text(
-            text = "Lønnskalkulator 🤑🤑🤑",
-            fontSize = TextUnit(24F, TextUnitType.Sp),
-            modifier = modifier.align(Alignment.CenterHorizontally)
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-
-        NumberInput(
-            label = "Timelønn",
-            value = "",
-            onValueChange = {
-                salary.hourlyWage = it.toFloatOrNull() ?: 0F
-                showResult = false
-            }, supportingText = "Timelønn i NOK"
-        )
-
-
-        NumberInput(
-            label = "Skatt",
-            value = "",
-            onValueChange = {
-                salary.tax = it.toFloatOrNull()
-            },
-            supportingText = "Skatt i %"
-        )
-
-        NumberInput(
-            label = "Helgetillegg",
-            value = "",
-            onValueChange = {
-                salary.weekendWage = it.toFloatOrNull() ?: 0F
-                showResult = false
-            }, supportingText = "Helgetillegg i NOK"
-        )
-
-
-        NumberInput(
-            label = "Kvelds- og nattillegg",
-            value = "",
-            onValueChange = {
-                salary.tax = it.toFloatOrNull()
-            },
-            supportingText = "Kvelds- og nattillegg i NOK"
-        )
-
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Text(
-            text = "Antall timer jobbet",
-            modifier = modifier.align(Alignment.CenterHorizontally)
-        )
-
-        Spacer(modifier = Modifier.height(5.dp))
-
-        Box(
+        Column(
             modifier = Modifier
-                .verticalScroll(rememberScrollState())
-                .padding(32.dp)
+                .fillMaxSize()
+                .padding(horizontal = 16.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            NumberInput(
+                label = "Timelønn",
+                value = "",
+                onValueChange = {
+                    salary.hourlyWage = it.toFloatOrNull() ?: 0F
+                    showResult = false
+                }, supportingText = "Timelønn i NOK"
+            )
+
+
+            NumberInput(
+                label = "Skatt",
+                value = "",
+                onValueChange = {
+                    salary.tax = it.toFloatOrNull()
+                },
+                supportingText = "Skatt i %"
+            )
+
+            NumberInput(
+                label = "Helgetillegg",
+                value = "",
+                onValueChange = {
+                    salary.weekendWage = it.toFloatOrNull() ?: 0F
+                    showResult = false
+                }, supportingText = "Helgetillegg i NOK"
+            )
+
+
+            NumberInput(
+                label = "Kvelds- og nattillegg",
+                value = "",
+                onValueChange = {
+                    salary.tax = it.toFloatOrNull()
+                },
+                supportingText = "Kvelds- og nattillegg i NOK"
+            )
+
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Text(
+                text = "Antall timer jobbet",
+                modifier = modifier.align(Alignment.CenterHorizontally)
+            )
+
+            Spacer(modifier = Modifier.height(5.dp))
+
+
             Column {
                 for (workTimeRecord in salary.workTimeRecords) {
                     WorkHoursCard(
@@ -131,22 +124,22 @@ fun SalaryCalculator(modifier: Modifier = Modifier) {
                     Spacer(modifier = Modifier.height(16.dp))
                 }
             }
-        }
 
-        Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-        CalculateButton(
-            onClick = {
-                totalSalary = salary.calculateTotalSalary()
-                showResult = true
-            },
-            modifier = Modifier.align(Alignment.CenterHorizontally)
-        )
+            CalculateButton(
+                onClick = {
+                    totalSalary = salary.calculateTotalSalary()
+                    showResult = true
+                },
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
 
-        Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(10.dp))
 
-        if (showResult) {
-            TotalSalaryCard(totalSalary)
+            if (showResult) {
+                TotalSalaryCard(totalSalary)
+            }
         }
     }
 }
