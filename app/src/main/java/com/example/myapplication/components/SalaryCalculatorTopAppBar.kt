@@ -1,4 +1,4 @@
-package com.example.myapplication.elements
+package com.example.myapplication.components
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme

@@ -24,11 +24,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.myapplication.Salary
 import com.example.myapplication.WorkTimeRecord
-import com.example.myapplication.elements.CalculateButton
-import com.example.myapplication.elements.NumberInput
-import com.example.myapplication.elements.SalaryCalculatorTopAppBar
-import com.example.myapplication.elements.TotalSalaryCard
-import com.example.myapplication.elements.WorkHoursCard
+import com.example.myapplication.components.CalculateButton
+import com.example.myapplication.components.NumberInput
+import com.example.myapplication.components.SalaryCalculatorTopAppBar
+import com.example.myapplication.components.TotalSalaryCard
+import com.example.myapplication.components.WorkHoursCard
 import com.example.myapplication.ui.theme.MyApplicationTheme
 
 @OptIn(ExperimentalMaterial3Api::class)

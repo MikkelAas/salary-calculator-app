@@ -1,4 +1,4 @@
-package com.example.myapplication.elements
+package com.example.myapplication.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
