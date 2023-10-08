@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
                                 titleContentColor = MaterialTheme.colorScheme.primary
                             ),
                             title = {
-                                Text(text ="Lønnskalkulator 🤑🤑🤑", textAlign = TextAlign.Center)
+                                Text(text = "Lønnskalkulator 🤑🤑🤑", textAlign = TextAlign.Center)
                             }
                         )
                     }
@@ -45,10 +45,6 @@ class MainActivity : ComponentActivity() {
                         SalaryCalculator()
                     }
                 }
-
-                // A surface container using the 'background' color from the theme
-
-
             }
         }
     }
