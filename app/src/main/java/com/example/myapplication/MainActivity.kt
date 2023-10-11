@@ -14,7 +14,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -25,6 +24,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.components.SalaryCalculatorTopAppBar
 import com.example.myapplication.screens.SalaryCalculatorScreen
+import com.example.myapplication.screens.SalaryInfoScreen
 import com.example.myapplication.ui.theme.MyApplicationTheme
 
 class MainActivity : ComponentActivity() {
@@ -39,7 +39,10 @@ class MainActivity : ComponentActivity() {
                         SalaryCalculatorTopAppBar()
                     },
                     bottomBar = {
-                        BottomNavigation {
+                        BottomNavigation(
+                            backgroundColor = MaterialTheme.colorScheme.primaryContainer,
+                            contentColor = MaterialTheme.colorScheme.primary
+                        ) {
                             val navBackStackEntry by navController.currentBackStackEntryAsState()
                             val currentDestination = navBackStackEntry?.destination
                             screens.forEach { screen ->
@@ -82,11 +85,11 @@ class MainActivity : ComponentActivity() {
                                     .fillMaxSize(),
                                 color = MaterialTheme.colorScheme.background
                             ) {
-                                SalaryCalculatorScreen()
+                                SalaryInfoScreen()
                             }
                         }
                         composable(route = "calculator") {
-                            Text(text = "Calculator goes here")
+                            SalaryCalculatorScreen()
                         }
                     }
                 }
