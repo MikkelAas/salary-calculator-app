@@ -4,7 +4,7 @@ import org.junit.Test
 
 import org.junit.Assert.*
 
-class SalaryTest {
+class SalaryCalculatorTest {
 
     @Test
     fun `calculate salary with only one set of normal hours`() {
@@ -14,9 +14,13 @@ class SalaryTest {
             )
         )
 
-        val salary = Salary(
-            hourlyWage = 100F,
-            workTimeRecords = workTimeRecords
+        val salaryInfo = SalaryInfo(
+            hourlyWage = 100F
+        )
+
+        val salary = SalaryCalculator(
+            salaryInfo,
+            workTimeRecords
         )
 
         val totalSalary = salary.calculateTotalSalary()
@@ -30,12 +34,18 @@ class SalaryTest {
             WorkTimeRecord(
                 hours = 10F
             ),
-            WorkTimeRecord(10F)
+            WorkTimeRecord(
+                hours = 10F
+            )
         )
 
-        val salary = Salary(
-            hourlyWage = 100F,
-            workTimeRecords = workTimeRecords
+        val salaryInfo = SalaryInfo(
+            hourlyWage = 100F
+        )
+
+        val salary = SalaryCalculator(
+            salaryInfo,
+            workTimeRecords
         )
 
         val totalSalary = salary.calculateTotalSalary()
@@ -56,9 +66,13 @@ class SalaryTest {
             )
         )
 
-        val salary = Salary(
-            hourlyWage = 100F,
-            workTimeRecords = workTimeRecords
+        val salaryInfo = SalaryInfo(
+            hourlyWage = 100F
+        )
+
+        val salary = SalaryCalculator(
+            salaryInfo,
+            workTimeRecords
         )
 
         val totalSalary = salary.calculateTotalSalary()
@@ -76,10 +90,14 @@ class SalaryTest {
             ),
         )
 
-        val salary = Salary(
+        val salaryInfo = SalaryInfo(
             hourlyWage = 100F,
-            workTimeRecords = workTimeRecords,
-            weekendWage = 100F
+            weekendWage = 100F,
+        )
+
+        val salary = SalaryCalculator(
+            salaryInfo,
+            workTimeRecords
         )
 
         val totalSalary = salary.calculateTotalSalary()
@@ -98,12 +116,16 @@ class SalaryTest {
             ),
         )
 
-        val salary = Salary(
+        val salaryInfo = SalaryInfo(
             hourlyWage = 100F,
             tax = 30F,
-            workTimeRecords = workTimeRecords,
             weekendWage = 100F,
             nightWage = 50F
+        )
+
+        val salary = SalaryCalculator(
+            salaryInfo,
+            workTimeRecords
         )
 
         val totalSalary = salary.calculateTotalSalary()
@@ -122,11 +144,15 @@ class SalaryTest {
             ),
         )
 
-        val salary = Salary(
+        val salaryInfo = SalaryInfo(
             hourlyWage = 100F,
-            workTimeRecords = workTimeRecords,
             weekendWage = 100F,
             nightWage = 50F
+        )
+
+        val salary = SalaryCalculator(
+            salaryInfo,
+            workTimeRecords
         )
 
         val totalSalary = salary.calculateTotalSalary()
