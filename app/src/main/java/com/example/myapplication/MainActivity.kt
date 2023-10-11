@@ -23,6 +23,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.myapplication.components.SalaryCalculatorTopAppBar
 import com.example.myapplication.screens.SalaryCalculatorScreen
 import com.example.myapplication.ui.theme.MyApplicationTheme
 
@@ -34,6 +35,9 @@ class MainActivity : ComponentActivity() {
             MyApplicationTheme {
                 val navController = rememberNavController()
                 Scaffold(
+                    topBar = {
+                        SalaryCalculatorTopAppBar()
+                    },
                     bottomBar = {
                         BottomNavigation {
                             val navBackStackEntry by navController.currentBackStackEntryAsState()

@@ -11,7 +11,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -26,7 +25,6 @@ import com.example.myapplication.Salary
 import com.example.myapplication.WorkTimeRecord
 import com.example.myapplication.components.CalculateButton
 import com.example.myapplication.components.NumberInput
-import com.example.myapplication.components.SalaryCalculatorTopAppBar
 import com.example.myapplication.components.TotalSalaryCard
 import com.example.myapplication.components.WorkHoursCard
 import com.example.myapplication.ui.theme.MyApplicationTheme
@@ -52,117 +50,109 @@ fun SalaryCalculatorScreen(modifier: Modifier = Modifier) {
         mutableStateOf(false)
     }
 
-    Scaffold(
-        topBar = {
-            SalaryCalculatorTopAppBar()
-        }
-    ) { innerPadding ->
-        Box(
+    Box(
+        modifier = Modifier
+            .verticalScroll(rememberScrollState())
+    ) {
+        Column(
             modifier = Modifier
-                .verticalScroll(rememberScrollState())
-                .padding(innerPadding)
+                .fillMaxSize()
+                .padding(horizontal = 16.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(horizontal = 16.dp),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
 
-                Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-                NumberInput(
-                    label = "Timelønn",
-                    value = "",
-                    onValueChange = {
-                        salary.hourlyWage = it.toFloatOrNull() ?: 0F
-                        showResult = false
-                    }, supportingText = "Timelønn i NOK"
-                )
+            NumberInput(
+                label = "Timelønn",
+                value = "",
+                onValueChange = {
+                    salary.hourlyWage = it.toFloatOrNull() ?: 0F
+                    showResult = false
+                }, supportingText = "Timelønn i NOK"
+            )
 
 
-                NumberInput(
-                    label = "Skatt",
-                    value = "",
-                    onValueChange = {
-                        salary.tax = it.toFloatOrNull()
-                    },
-                    supportingText = "Skatt i %"
-                )
+            NumberInput(
+                label = "Skatt",
+                value = "",
+                onValueChange = {
+                    salary.tax = it.toFloatOrNull()
+                },
+                supportingText = "Skatt i %"
+            )
 
-                NumberInput(
-                    label = "Helgetillegg",
-                    value = "",
-                    onValueChange = {
-                        salary.weekendWage = it.toFloatOrNull() ?: 0F
-                        showResult = false
-                    }, supportingText = "Helgetillegg i NOK"
-                )
-
-
-                NumberInput(
-                    label = "Kvelds- og nattillegg",
-                    value = "",
-                    onValueChange = {
-                        salary.tax = it.toFloatOrNull()
-                    },
-                    supportingText = "Kvelds- og nattillegg i NOK"
-                )
+            NumberInput(
+                label = "Helgetillegg",
+                value = "",
+                onValueChange = {
+                    salary.weekendWage = it.toFloatOrNull() ?: 0F
+                    showResult = false
+                }, supportingText = "Helgetillegg i NOK"
+            )
 
 
-                Spacer(modifier = Modifier.height(16.dp))
+            NumberInput(
+                label = "Kvelds- og nattillegg",
+                value = "",
+                onValueChange = {
+                    salary.tax = it.toFloatOrNull()
+                },
+                supportingText = "Kvelds- og nattillegg i NOK"
+            )
 
-                Text(
-                    text = "Antall timer jobbet",
-                    modifier = modifier.align(Alignment.CenterHorizontally)
-                )
 
-                Spacer(modifier = Modifier.height(5.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-                Column {
+            Text(
+                text = "Antall timer jobbet",
+                modifier = modifier.align(Alignment.CenterHorizontally)
+            )
 
-                    Button(onClick = {
-                        salary.workTimeRecords.add(WorkTimeRecord())
-                    }) {
-                        Text(text = "Add")
-                    }
+            Spacer(modifier = Modifier.height(5.dp))
 
-                    for (workTimeRecord in salary.workTimeRecords) {
-                        WorkHoursCard(
-                            onHoursInputChange = {},
-                            onBonusInputChange = {},
-                            onWeekendHoursInputChange = {},
-                            onNightHoursInputChange = {},
-                            deleteButtonOnClick = {
+            Column {
 
-                            }
-                        )
-
-                        Spacer(modifier = Modifier.height(16.dp))
-                    }
+                Button(onClick = {
+                    salary.workTimeRecords.add(WorkTimeRecord())
+                }) {
+                    Text(text = "Add")
                 }
 
+                for (workTimeRecord in salary.workTimeRecords) {
+                    WorkHoursCard(
+                        onHoursInputChange = {},
+                        onBonusInputChange = {},
+                        onWeekendHoursInputChange = {},
+                        onNightHoursInputChange = {},
+                        deleteButtonOnClick = {
 
-                Spacer(modifier = Modifier.height(16.dp))
+                        }
+                    )
 
-                CalculateButton(
-                    onClick = {
-                        totalSalary = salary.calculateTotalSalary()
-                        showResult = true
-                    },
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
-                )
-
-                Spacer(modifier = Modifier.height(10.dp))
-
-                if (showResult) {
-                    TotalSalaryCard(totalSalary)
+                    Spacer(modifier = Modifier.height(16.dp))
                 }
+            }
+
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            CalculateButton(
+                onClick = {
+                    totalSalary = salary.calculateTotalSalary()
+                    showResult = true
+                },
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            if (showResult) {
+                TotalSalaryCard(totalSalary)
             }
         }
     }
-
 }
 
 @Preview(showBackground = true)
