@@ -1,10 +1,7 @@
 package com.example.myapplication
 
-data class Salary(
-    var hourlyWage: Float = 0F,
-    var tax: Float? = null,
-    var weekendWage: Float = 0F,
-    var nightWage: Float = 0F,
+class SalaryCalculator(
+    var salaryInfo: SalaryInfo,
     var workTimeRecords: MutableList<WorkTimeRecord> = mutableListOf()
 ) {
     fun calculateTotalSalary(): Float {
@@ -19,11 +16,15 @@ data class Salary(
                 1F
             }
 
-            total += workTimeRecord.hours * (bonus) * hourlyWage + (workTimeRecord.weekendHours * weekendWage) + (workTimeRecord.nightHours * nightWage)
+            total += (
+                    workTimeRecord.hours * (bonus) * salaryInfo.hourlyWage
+                            + (workTimeRecord.weekendHours * salaryInfo.weekendWage)
+                            + (workTimeRecord.nightHours * salaryInfo.nightWage)
+                    )
         }
 
-        if (tax != null) {
-            return total * ((100 - tax!!) / 100)
+        if (salaryInfo.tax != null) {
+            return total * ((100 - salaryInfo.tax!!) / 100)
         }
 
         return total
