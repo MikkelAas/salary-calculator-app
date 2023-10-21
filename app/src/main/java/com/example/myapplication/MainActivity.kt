@@ -9,13 +9,15 @@ import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Face
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
@@ -49,7 +51,7 @@ class MainActivity : ComponentActivity() {
                                 BottomNavigationItem(
                                     icon = {
                                         Icon(
-                                            Icons.Filled.Favorite,
+                                            screen.icon,
                                             contentDescription = null
                                         )
                                     },
@@ -94,9 +96,9 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-sealed class Screen(val route: String) {
-    object SalaryInfo : Screen("salaryInfo")
-    object Calculator : Screen("calculator")
+sealed class Screen(val route: String, val icon: ImageVector) {
+    object SalaryInfo : Screen("salaryInfo", Icons.Filled.Face)
+    object Calculator : Screen("calculator", Icons.Filled.Add)
 }
 
 val screens = listOf(
