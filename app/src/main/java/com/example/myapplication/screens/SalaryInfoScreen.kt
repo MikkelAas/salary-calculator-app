@@ -12,12 +12,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.components.NumberInput
 import com.example.myapplication.viewModels.SalaryCalculatorViewModel
 
 @Composable
-fun SalaryInfoScreen(salaryCalculatorViewModel: SalaryCalculatorViewModel = viewModel()) {
+fun SalaryInfoScreen(salaryCalculatorViewModel: SalaryCalculatorViewModel) {
     val scrollState = rememberScrollState()
 
     Column(
@@ -33,9 +32,9 @@ fun SalaryInfoScreen(salaryCalculatorViewModel: SalaryCalculatorViewModel = view
 
         NumberInput(
             label = "Timelønn",
-            value = "",
+            value = salaryCalculatorViewModel.hourlyWage.toString(),
             onValueChange = {
-                salaryCalculatorViewModel.hourlyWage = it.toFloat()
+                salaryCalculatorViewModel.hourlyWage = it.toFloatOrNull() ?: 0F
             }, supportingText = "Timelønn i NOK"
         )
 
@@ -43,7 +42,7 @@ fun SalaryInfoScreen(salaryCalculatorViewModel: SalaryCalculatorViewModel = view
             label = "Skatt",
             value = "",
             onValueChange = {
-                salaryCalculatorViewModel.tax = it.toFloat()
+                salaryCalculatorViewModel.tax = it.toFloatOrNull() ?: 0F
             },
             supportingText = "Skatt i %"
         )
@@ -52,7 +51,7 @@ fun SalaryInfoScreen(salaryCalculatorViewModel: SalaryCalculatorViewModel = view
             label = "Helgetillegg",
             value = "",
             onValueChange = {
-                salaryCalculatorViewModel.weekendWage = it.toFloat()
+                salaryCalculatorViewModel.weekendWage = it.toFloatOrNull() ?: 0F
             }, supportingText = "Helgetillegg i NOK"
         )
 
@@ -61,7 +60,7 @@ fun SalaryInfoScreen(salaryCalculatorViewModel: SalaryCalculatorViewModel = view
             label = "Kvelds- og nattillegg",
             value = "",
             onValueChange = {
-                salaryCalculatorViewModel.nightWage = it.toFloat()
+                salaryCalculatorViewModel.nightWage = it.toFloatOrNull() ?: 0F
             },
             supportingText = "Kvelds- og nattillegg i NOK"
         )
