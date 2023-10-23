@@ -28,10 +28,14 @@ import com.example.myapplication.components.SalaryCalculatorTopAppBar
 import com.example.myapplication.screens.SalaryCalculatorScreen
 import com.example.myapplication.screens.SalaryInfoScreen
 import com.example.myapplication.ui.theme.MyApplicationTheme
+import com.example.myapplication.viewModels.SalaryCalculatorViewModel
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        val viewModel = SalaryCalculatorViewModel()
+
         super.onCreate(savedInstanceState)
         setContent {
             MyApplicationTheme {
@@ -40,6 +44,8 @@ class MainActivity : ComponentActivity() {
                     topBar = {
                         SalaryCalculatorTopAppBar()
                     },
+
+
                     bottomBar = {
                         BottomNavigation(
                             backgroundColor = MaterialTheme.colorScheme.primaryContainer,
@@ -81,11 +87,11 @@ class MainActivity : ComponentActivity() {
                                     .fillMaxSize(),
                                 color = MaterialTheme.colorScheme.background
                             ) {
-                                SalaryInfoScreen()
+                                SalaryInfoScreen(viewModel)
                             }
                         }
                         composable(route = "calculator") {
-                            SalaryCalculatorScreen()
+                            SalaryCalculatorScreen(salaryCalculatorViewModel = viewModel)
                         }
                     }
                 }
