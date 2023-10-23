@@ -12,11 +12,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.components.NumberInput
+import com.example.myapplication.viewModels.SalaryCalculatorViewModel
 
 @Composable
-fun SalaryInfoScreen() {
-
+fun SalaryInfoScreen(salaryCalculatorViewModel: SalaryCalculatorViewModel = viewModel()) {
     val scrollState = rememberScrollState()
 
     Column(
@@ -34,14 +35,15 @@ fun SalaryInfoScreen() {
             label = "Timelønn",
             value = "",
             onValueChange = {
+                salaryCalculatorViewModel.hourlyWage = it.toFloat()
             }, supportingText = "Timelønn i NOK"
         )
-
 
         NumberInput(
             label = "Skatt",
             value = "",
             onValueChange = {
+                salaryCalculatorViewModel.tax = it.toFloat()
             },
             supportingText = "Skatt i %"
         )
@@ -50,7 +52,7 @@ fun SalaryInfoScreen() {
             label = "Helgetillegg",
             value = "",
             onValueChange = {
-
+                salaryCalculatorViewModel.weekendWage = it.toFloat()
             }, supportingText = "Helgetillegg i NOK"
         )
 
@@ -59,6 +61,7 @@ fun SalaryInfoScreen() {
             label = "Kvelds- og nattillegg",
             value = "",
             onValueChange = {
+                salaryCalculatorViewModel.nightWage = it.toFloat()
             },
             supportingText = "Kvelds- og nattillegg i NOK"
         )
