@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 
 
@@ -40,6 +41,7 @@ fun TotalSalaryDialog(
                 Text(
                     text = "Total lønn: $totalSalary",
                     modifier = Modifier.padding(16.dp),
+                    fontSize = 30.sp
                 )
 
                 Row(
@@ -51,7 +53,7 @@ fun TotalSalaryDialog(
                         onClick = { onDismissRequest() },
                         modifier = Modifier.padding(8.dp),
                     ) {
-                        Text("Ok 👍👍")
+                        Text("Ok 👍👍", fontSize = 20.sp)
                     }
                 }
             }
