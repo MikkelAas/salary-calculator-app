@@ -32,7 +32,7 @@ fun SalaryCalculatorScreen(
     salaryCalculatorViewModel: SalaryCalculatorViewModel
 ) {
     FloatingActionButton(onClick = {
-        salaryCalculatorViewModel.workTimeRecords.add(WorkTimeRecord(100F))
+        salaryCalculatorViewModel.workTimeRecords.add(WorkTimeRecord())
     }) {
         Icon(Icons.Filled.Add, "Add new work time record.")
     }
@@ -54,32 +54,44 @@ fun SalaryCalculatorScreen(
 
         Spacer(modifier = Modifier.height(5.dp))
 
-        LazyColumn() {
-            items(salaryCalculatorViewModel.workTimeRecords) {
-                WorkHoursCard(
-                    onHoursInputChange = { },
-                    onBonusInputChange = {},
-                    onWeekendHoursInputChange = {},
-                    onNightHoursInputChange = {},
-                    deleteButtonOnClick = {
-                        salaryCalculatorViewModel.workTimeRecords.remove(it)
-                    }
-                )
-            }
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
         CalculateButton(
             onClick = {
-                salaryCalculatorViewModel.totalSalary = salaryCalculatorViewModel.calculateTotalSalary()
+                salaryCalculatorViewModel.totalSalary =
+                    salaryCalculatorViewModel.calculateTotalSalary()
             },
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
 
-        Spacer(modifier = Modifier.height(10.dp))
 
         TotalSalaryCard(salaryCalculatorViewModel.totalSalary)
+
+
+
+
+        LazyColumn() {
+            items(salaryCalculatorViewModel.workTimeRecords) { workTimeRecord ->
+                WorkHoursCard(
+                    workTimeRecord = workTimeRecord,
+                    onHoursInputChange = {
+                        workTimeRecord.hours = it.toFloatOrNull() ?: 0F
+                    },
+                    onBonusInputChange = {
+                        workTimeRecord.bonusInPercent = it.toFloatOrNull()
+                    },
+                    onWeekendHoursInputChange = {
+                        workTimeRecord.weekendHours = it.toFloatOrNull() ?: 0F
+                    },
+                    onNightHoursInputChange = {
+                        workTimeRecord.nightHours = it.toFloatOrNull() ?: 0F
+                    },
+                    deleteButtonOnClick = {
+                        salaryCalculatorViewModel.workTimeRecords.remove(workTimeRecord)
+                    }
+                )
+                
+                Spacer(modifier = Modifier.height(10.dp))
+            }
+        }
     }
 }
 
