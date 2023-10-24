@@ -40,7 +40,7 @@ fun SalaryInfoScreen(salaryCalculatorViewModel: SalaryCalculatorViewModel) {
 
         NumberInput(
             label = "Skatt",
-            value = "",
+            value = salaryCalculatorViewModel.tax.toString(),
             onValueChange = {
                 salaryCalculatorViewModel.tax = it.toFloatOrNull() ?: 0F
             },
@@ -49,7 +49,7 @@ fun SalaryInfoScreen(salaryCalculatorViewModel: SalaryCalculatorViewModel) {
 
         NumberInput(
             label = "Helgetillegg",
-            value = "",
+            value = salaryCalculatorViewModel.weekendWage.toString(),
             onValueChange = {
                 salaryCalculatorViewModel.weekendWage = it.toFloatOrNull() ?: 0F
             }, supportingText = "Helgetillegg i NOK"
@@ -58,7 +58,7 @@ fun SalaryInfoScreen(salaryCalculatorViewModel: SalaryCalculatorViewModel) {
 
         NumberInput(
             label = "Kvelds- og nattillegg",
-            value = "",
+            value = salaryCalculatorViewModel.nightWage.toString(),
             onValueChange = {
                 salaryCalculatorViewModel.nightWage = it.toFloatOrNull() ?: 0F
             },
