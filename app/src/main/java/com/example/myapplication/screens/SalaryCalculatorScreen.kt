@@ -12,61 +12,64 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.WorkTimeRecord
 import com.example.myapplication.components.CalculateButton
-import com.example.myapplication.components.TotalSalaryCard
 import com.example.myapplication.components.WorkHoursCard
+import com.example.myapplication.dialogs.TotalSalaryDialog
 import com.example.myapplication.ui.theme.MyApplicationTheme
 import com.example.myapplication.viewModels.SalaryCalculatorViewModel
 
 @Composable
 fun SalaryCalculatorScreen(
-    modifier: Modifier = Modifier,
     salaryCalculatorViewModel: SalaryCalculatorViewModel
 ) {
-    FloatingActionButton(onClick = {
-        salaryCalculatorViewModel.workTimeRecords.add(WorkTimeRecord())
-    }) {
+    var showDialog by remember {
+        mutableStateOf(false)
+    }
+
+    val blurRadius = if (showDialog) 10.dp else 0.dp
+
+    FloatingActionButton(
+        onClick = {
+            salaryCalculatorViewModel.workTimeRecords.add(WorkTimeRecord())
+        }) {
         Icon(Icons.Filled.Add, "Add new work time record.")
     }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 16.dp),
+            .padding(horizontal = 16.dp)
+            .blur(blurRadius),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Text(
-            text = "Antall timer jobbet",
-            modifier = modifier.align(Alignment.CenterHorizontally)
-        )
+        if (salaryCalculatorViewModel.workTimeRecords.isNotEmpty()) {
+            CalculateButton(
+                onClick = {
+                    salaryCalculatorViewModel.totalSalary =
+                        salaryCalculatorViewModel.calculateTotalSalary()
+                    showDialog = !showDialog
+                },
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
+        }
 
-        Spacer(modifier = Modifier.height(5.dp))
-
-        CalculateButton(
-            onClick = {
-                salaryCalculatorViewModel.totalSalary =
-                    salaryCalculatorViewModel.calculateTotalSalary()
-            },
-            modifier = Modifier.align(Alignment.CenterHorizontally)
-        )
-
-
-        TotalSalaryCard(salaryCalculatorViewModel.totalSalary)
-
-
-
+        Spacer(modifier = Modifier.height(16.dp))
 
         LazyColumn() {
             items(salaryCalculatorViewModel.workTimeRecords) { workTimeRecord ->
@@ -88,9 +91,16 @@ fun SalaryCalculatorScreen(
                         salaryCalculatorViewModel.workTimeRecords.remove(workTimeRecord)
                     }
                 )
-                
+
                 Spacer(modifier = Modifier.height(10.dp))
             }
+        }
+
+        if (showDialog) {
+            TotalSalaryDialog(
+                onDismissRequest = { showDialog = !showDialog },
+                totalSalary = salaryCalculatorViewModel.totalSalary
+            )
         }
     }
 }
