@@ -82,22 +82,34 @@ fun WorkHoursCard(
 
                 NumberInput(
                     label = "Antall timer totalt",
-                    value = workTimeRecord.hours.toString(),
+                    value = (
+                            if (workTimeRecord.hours == 0F) ""
+                            else workTimeRecord.hours.toString()
+                            ),
                     onValueChange = onHoursInputChange
                 )
                 NumberInput(
                     label = "Bonus i %",
-                    value = workTimeRecord.bonusInPercent.toString(),
+                    value = (
+                            if (workTimeRecord.bonusInPercent == null) ""
+                            else workTimeRecord.bonusInPercent.toString()
+                            ),
                     onValueChange = onBonusInputChange
                 )
                 NumberInput(
                     label = "Antall timer helg",
-                    value = workTimeRecord.weekendHours.toString(),
+                    value = (
+                            if (workTimeRecord.weekendHours.equals(0F)) ""
+                            else workTimeRecord.weekendHours.toString()
+                            ),
                     onValueChange = onWeekendHoursInputChange
                 )
                 NumberInput(
                     label = "Antall timer natt",
-                    value = workTimeRecord.nightHours.toString(),
+                    value = (
+                            if (workTimeRecord.nightHours.equals(0F)) ""
+                            else workTimeRecord.nightHours.toString()
+                            ),
                     onValueChange = onNightHoursInputChange
                 )
 

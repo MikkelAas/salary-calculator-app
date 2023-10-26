@@ -37,7 +37,10 @@ fun SalaryInfoScreen(salaryCalculatorViewModel: SalaryCalculatorViewModel) {
 
         NumberInput(
             label = "Timelønn",
-            value = salaryCalculatorViewModel.hourlyWage.toString(),
+            value = (
+                    if (salaryCalculatorViewModel.hourlyWage.equals(0F)) ""
+                    else salaryCalculatorViewModel.hourlyWage.toString()
+                    ),
             onValueChange = {
                 salaryCalculatorViewModel.hourlyWage = it.toFloatOrNull() ?: 0F
             }, supportingText = "Timelønn i NOK"
@@ -47,7 +50,10 @@ fun SalaryInfoScreen(salaryCalculatorViewModel: SalaryCalculatorViewModel) {
 
         NumberInput(
             label = "Skatt",
-            value = salaryCalculatorViewModel.tax.toString(),
+            value = (
+                    if (salaryCalculatorViewModel.tax.equals(0F)) ""
+                    else salaryCalculatorViewModel.tax.toString()
+                    ),
             onValueChange = {
                 salaryCalculatorViewModel.tax = it.toFloatOrNull() ?: 0F
             },
@@ -58,7 +64,10 @@ fun SalaryInfoScreen(salaryCalculatorViewModel: SalaryCalculatorViewModel) {
 
         NumberInput(
             label = "Helgetillegg",
-            value = salaryCalculatorViewModel.weekendWage.toString(),
+            value = (
+                    if (salaryCalculatorViewModel.weekendWage.equals(0F)) ""
+                    else salaryCalculatorViewModel.weekendWage.toString()
+                    ),
             onValueChange = {
                 salaryCalculatorViewModel.weekendWage = it.toFloatOrNull() ?: 0F
             }, supportingText = "Helgetillegg i NOK"
@@ -68,7 +77,10 @@ fun SalaryInfoScreen(salaryCalculatorViewModel: SalaryCalculatorViewModel) {
 
         NumberInput(
             label = "Kvelds- og nattillegg",
-            value = salaryCalculatorViewModel.nightWage.toString(),
+            value = (
+                    if (salaryCalculatorViewModel.nightWage.equals(0F)) ""
+                    else salaryCalculatorViewModel.nightWage.toString()
+                    ),
             onValueChange = {
                 salaryCalculatorViewModel.nightWage = it.toFloatOrNull() ?: 0F
             },
