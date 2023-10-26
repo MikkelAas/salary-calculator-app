@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import kotlin.math.roundToInt
 
 
 @Composable
@@ -39,7 +40,13 @@ fun TotalSalaryDialog(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
-                    text = "Total lønn: $totalSalary",
+                    text = "Total lønn: ",
+                    modifier = Modifier.padding(16.dp),
+                    fontSize = 30.sp
+                )
+
+                Text(
+                    text = "${totalSalary.roundToInt()}kr",
                     modifier = Modifier.padding(16.dp),
                     fontSize = 30.sp
                 )
