@@ -1,8 +1,31 @@
 package com.example.myapplication.components
 
+import android.app.DatePickerDialog
+import android.icu.util.Calendar
+import android.widget.DatePicker
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.myapplication.WorkTimeRecord
 import com.example.myapplication.ui.theme.MyApplicationTheme
 
@@ -15,28 +38,95 @@ fun WorkHoursCard(
     deleteButtonOnClick: () -> Unit,
     workTimeRecord: WorkTimeRecord
 ) {
-    Card {
-        NumberInput(
-            label = "Antall timer totalt",
-            value = workTimeRecord.hours.toString(),
-            onValueChange = onHoursInputChange
-        )
-        NumberInput(
-            label = "Bonus i %",
-            value = workTimeRecord.bonusInPercent.toString(),
-            onValueChange = onBonusInputChange
-        )
-        NumberInput(
-            label = "Antall timer helg",
-            value = workTimeRecord.weekendHours.toString(),
-            onValueChange = onWeekendHoursInputChange
-        )
-        NumberInput(
-            label = "Antall timer natt",
-            value = workTimeRecord.nightHours.toString(),
-            onValueChange = onNightHoursInputChange
-        )
-        DeleteButton(onClick = deleteButtonOnClick)
+    val context = LocalContext.current
+
+    val calendar = Calendar.getInstance()
+
+    var selectedDateText by rememberSaveable { mutableStateOf("Velg dato") }
+
+    var isExpanded by rememberSaveable {
+        mutableStateOf(true)
+    }
+
+    val year = calendar[Calendar.YEAR]
+    val month = calendar[Calendar.MONTH]
+    val dayOfMonth = calendar[Calendar.DAY_OF_MONTH]
+
+    val datePicker = DatePickerDialog(
+        context,
+        { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDayOfMonth: Int ->
+            selectedDateText = "$selectedDayOfMonth/${selectedMonth + 1}/$selectedYear"
+        },
+        year,
+        month,
+        dayOfMonth
+    )
+
+    Card(
+        modifier = Modifier
+            .padding(20.dp)
+            .width(400.dp)
+    ) {
+        if (isExpanded) {
+
+            IconButton(onClick = { isExpanded = !isExpanded }) {
+                Icon(Icons.Filled.KeyboardArrowUp, "Drop down arrow")
+            }
+
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.padding(horizontal = 15.dp, vertical = 10.dp)
+            ) {
+
+
+                NumberInput(
+                    label = "Antall timer totalt",
+                    value = workTimeRecord.hours.toString(),
+                    onValueChange = onHoursInputChange
+                )
+                NumberInput(
+                    label = "Bonus i %",
+                    value = workTimeRecord.bonusInPercent.toString(),
+                    onValueChange = onBonusInputChange
+                )
+                NumberInput(
+                    label = "Antall timer helg",
+                    value = workTimeRecord.weekendHours.toString(),
+                    onValueChange = onWeekendHoursInputChange
+                )
+                NumberInput(
+                    label = "Antall timer natt",
+                    value = workTimeRecord.nightHours.toString(),
+                    onValueChange = onNightHoursInputChange
+                )
+
+                TextButton(
+                    onClick = {
+                        datePicker.show()
+                    }) {
+                    Text(text = selectedDateText)
+                }
+            }
+
+            DeleteButton(onClick = deleteButtonOnClick)
+        } else {
+            Row(
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+                IconButton(onClick = { isExpanded = !isExpanded }) {
+                    Icon(Icons.Filled.KeyboardArrowDown, "Drop down arrow")
+                }
+                TextButton(
+                    onClick = {
+                        datePicker.show()
+                    }) {
+                    Text(text = selectedDateText)
+                }
+
+                DeleteButton(onClick = deleteButtonOnClick)
+            }
+        }
     }
 }
 
