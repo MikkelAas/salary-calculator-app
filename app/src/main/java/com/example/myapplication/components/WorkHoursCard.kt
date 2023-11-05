@@ -56,7 +56,7 @@ fun WorkHoursCard(
     val datePicker = DatePickerDialog(
         context,
         { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDayOfMonth: Int ->
-            selectedDate = LocalDate.of(selectedYear, selectedMonth, selectedDayOfMonth)
+            selectedDate = LocalDate.of(selectedYear, selectedMonth+1, selectedDayOfMonth)
         },
         year,
         month,
