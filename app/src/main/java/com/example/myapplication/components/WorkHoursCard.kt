@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import com.example.myapplication.models.WorkTimeRecord
 import com.example.myapplication.ui.theme.MyApplicationTheme
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 @Composable
 fun WorkHoursCard(
@@ -44,6 +45,8 @@ fun WorkHoursCard(
     val calendar = Calendar.getInstance()
 
     var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
+
+    val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
 
     var isExpanded by remember {
         mutableStateOf(true)
@@ -118,7 +121,7 @@ fun WorkHoursCard(
                     onClick = {
                         datePicker.show()
                     }) {
-                    Text(text = if (selectedDate == null) "Velg dato" else selectedDate.toString())
+                    Text(text = if (selectedDate == null) "Velg dato" else selectedDate!!.format(formatter))
                 }
             }
 
@@ -134,7 +137,7 @@ fun WorkHoursCard(
                     onClick = {
                         datePicker.show()
                     }) {
-                    Text(text = if (selectedDate == null) "Velg dato" else selectedDate.toString())
+                    Text(text = if (selectedDate == null) "Velg dato" else selectedDate!!.format(formatter))
                 }
 
                 DeleteButton(onClick = deleteButtonOnClick)
