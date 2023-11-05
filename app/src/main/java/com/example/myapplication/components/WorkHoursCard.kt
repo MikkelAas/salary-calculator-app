@@ -28,6 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.myapplication.models.WorkTimeRecord
 import com.example.myapplication.ui.theme.MyApplicationTheme
+import java.time.LocalDate
 
 @Composable
 fun WorkHoursCard(
@@ -42,7 +43,7 @@ fun WorkHoursCard(
 
     val calendar = Calendar.getInstance()
 
-    var selectedDateText by remember { mutableStateOf("Velg dato") }
+    var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
 
     var isExpanded by remember {
         mutableStateOf(true)
@@ -55,7 +56,7 @@ fun WorkHoursCard(
     val datePicker = DatePickerDialog(
         context,
         { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDayOfMonth: Int ->
-            selectedDateText = "$selectedDayOfMonth/${selectedMonth + 1}/$selectedYear"
+            selectedDate = LocalDate.of(selectedYear, selectedMonth, selectedDayOfMonth)
         },
         year,
         month,
@@ -117,7 +118,7 @@ fun WorkHoursCard(
                     onClick = {
                         datePicker.show()
                     }) {
-                    Text(text = selectedDateText)
+                    Text(text = if (selectedDate == null) "Velg dato" else selectedDate.toString())
                 }
             }
 
@@ -133,7 +134,7 @@ fun WorkHoursCard(
                     onClick = {
                         datePicker.show()
                     }) {
-                    Text(text = selectedDateText)
+                    Text(text = if (selectedDate == null) "Velg dato" else selectedDate.toString())
                 }
 
                 DeleteButton(onClick = deleteButtonOnClick)
