@@ -1,5 +1,8 @@
 package com.example.myapplication
 
+import com.example.myapplication.models.SalaryInfo
+import com.example.myapplication.models.WorkTimeRecord
+
 class SalaryCalculator(
     var salaryInfo: SalaryInfo,
     var workTimeRecords: MutableList<WorkTimeRecord> = mutableListOf()

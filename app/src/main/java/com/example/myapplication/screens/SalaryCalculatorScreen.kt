@@ -25,7 +25,7 @@ import androidx.compose.ui.draw.blur
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.myapplication.WorkTimeRecord
+import com.example.myapplication.models.WorkTimeRecord
 import com.example.myapplication.components.CalculateButton
 import com.example.myapplication.components.WorkHoursCard
 import com.example.myapplication.dialogs.TotalSalaryDialog

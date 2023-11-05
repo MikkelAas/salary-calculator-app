@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.models
 
 data class WorkTimeRecord(
     var hours: Float = 0F,

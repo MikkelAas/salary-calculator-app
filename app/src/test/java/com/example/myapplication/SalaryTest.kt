@@ -1,5 +1,7 @@
 package com.example.myapplication
 
+import com.example.myapplication.models.SalaryInfo
+import com.example.myapplication.models.WorkTimeRecord
 import org.junit.Test
 
 import org.junit.Assert.*

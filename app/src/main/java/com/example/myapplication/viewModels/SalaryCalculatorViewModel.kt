@@ -6,8 +6,8 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.example.myapplication.SalaryCalculator
-import com.example.myapplication.SalaryInfo
-import com.example.myapplication.WorkTimeRecord
+import com.example.myapplication.models.SalaryInfo
+import com.example.myapplication.models.WorkTimeRecord
 
 class SalaryCalculatorViewModel : ViewModel() {
 
